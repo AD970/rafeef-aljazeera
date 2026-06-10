@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #1a1a1a;
+    --primary: #1e3a5f;
+    --primary-dark: #0f1f35;
+    --text-dark: #2d3436;
+    --text-light: #ffffff;
+    --border-color: #e5e7eb;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #2d3436;
+  }
+
+  html {
+    font-family: system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+  }
+}
+
+/* Glassmorphism effect */
+.glass {
+  @apply backdrop-blur-md bg-white/10 border border-white/20;
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  @apply transition-all duration-300 ease-out;
+}
+
+/* Luxury text shadow */
+.text-luxury {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Gold accent hover */
+.hover-gold:hover {
+  color: #d4af37;
+  transition: color 0.3s ease-out;
+}
+
+/* RTL support */
+[dir='rtl'] .ltr-only {
+  @apply hidden;
+}
+
+[dir='ltr'] .rtl-only {
+  @apply hidden;
+}
