@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView,Variants } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 
 export function HeroHome() {
@@ -21,7 +21,7 @@ export function HeroHome() {
     }
   }, [isInView])
 
-  const containerVariants = {
+  const containerVariants:Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -32,7 +32,7 @@ export function HeroHome() {
     },
   }
 
-  const itemVariants = {
+  const itemVariants:Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,

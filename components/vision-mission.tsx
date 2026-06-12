@@ -24,9 +24,56 @@ export function VisionMission() {
     },
   }
 
+
+
+
+
   return (
     <section className="py-20 px-6 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-6xl mx-auto">
+
+
+        {/* about rafeef */}
+
+          <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="mt-24"
+        >
+          <div className="grid md:grid-cols-2 gap-12 mb-20 items-center">
+            <motion.div variants={itemVariants}>
+              <div className="flex items-center gap-3 mb-6">
+                  <img src={'logo.png'} className="w-18 h-18 text-[#1e3a5f]" />
+                <h2 className="text-4xl font-bold text-slate-900">عن رفيف الجزيرة</h2>
+              </div>
+              <div className="space-y-4 text-lg text-slate-600 leading-relaxed">
+                <p>
+                  نحن مؤسسة رفيف الجزيرة للمقاولات مؤسسة سعودية مؤهلة في مجال الانشاءات العامة للمباني الحكومية والسكنية وغير السكنية متخصصين في أعمال المقاولات العامة من انشاء فلل وعمائر وقصور وملاحق علوية وسفلية وأيضا متخصصة في أعمال الترميم والتشطيب ويمكننا تلبية احتياجاتكم بشكل دقيق وفعال ونحن نتبنى أحدث التقنيات والممارسات في أعمال المقاولات مما يضمن تنفيذ المشاريع بكفاءة عالية وفي الوقت المجدد.
+                </p>
+                <p>
+                هذه المؤسسة تندرج منها :
+                </p>
+                <li>مؤسسة تجارية مؤهلة في نشاط التوريد والبيع بالجملة والتجزئة ويمكننا تلبية احتياجاتكم بشكل دقيق وفعال ونحن نتبنى أحدث التقنيات والممارسات في أعمال التوريد مما يضمن تلبية طلبكم بكفاءة عالية وفي الوقت المحدد.
+                </li>
+                <li>
+                  مؤسسة عقارية متخصصة في بيع وشراء وتأجير العقارات والتطوير والاستثمار العقاري والتسويق العقاري وإدارة الأملاك.
+                </li>
+              </div>
+            </motion.div>
+
+            <motion.div
+              variants={itemVariants}
+              className="relative h-96 rounded-xl overflow-hidden shadow-lg" 
+              style={{backgroundImage: 'url(about/apartment.jpg)',backgroundSize:'cover',backgroundPosition:'center'}}
+              
+            >
+             {/* <img src='/about/apartment.jpg' /> */}
+            </motion.div>
+          </div>
+        </motion.div>
+
         {/* Vision Section */}
         <motion.div
           variants={containerVariants}

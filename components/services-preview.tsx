@@ -1,37 +1,40 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Building2, Pencil, PaintBucket, ArrowLeft } from 'lucide-react'
+import { motion, Variants } from 'framer-motion'
+import { Building2, Paintbrush, Briefcase, ArrowLeft } from 'lucide-react'
 
 export function ServicesPreview() {
   const services = [
     {
       icon: Building2,
-      title: 'المقاولات العامة',
-      description: 'نقدم خدمات المقاولات العامة الشاملة التي تشمل جميع مراحل المشروع من التخطيط والتصميم إلى التنفيذ والإشراف. نتعامل مع المشاريع السكنية والتجارية والصناعية بأعلى معايير الجودة والسلامة. فريقنا المتخصص يضمن تسليم المشاريع في الوقت المحدد وبالميزانية المتفق عليها، مع الالتزام الكامل بجميع المعايير الهندسية والعمرانية السعودية.',
+      title: 'انشاء القصور والفلل والعمائر',
+      description:
+        'نقوم بالإدارة والإشراف على كافة خدمات المقاولات العامة من بناء الهياكل الخرسانية من جسور و أسقف وأساسات باستخدام أحدث التقنيات والمواد المبتكرة في البناء الخرساني وفقا لاشتراطات ومواصفات الكود السعودي للبناء.',
       bgColor: 'bg-slate-800',
       iconBgColor: 'bg-blue-400',
       iconTextColor: 'text-white',
     },
     {
-      icon: Pencil,
-      title: 'التصميم الهندسي والمعماري',
-      description: 'يقدم فريقنا من المعماريين والمهندسين حلولاً تصميمية مبتكرة وعملية تجمع بين الجمال الفني والكفاءة الوظيفية. نستخدم أحدث التقنيات وأدوات التصميم الحديثة لتقديم تصاميم مستدامة وصديقة للبيئة. كل مشروع يتم دراسته بعمق للتأكد من أنه يلبي جميع احتياجات العميل والمتطلبات المحلية.',
+      icon: Paintbrush,
+      title: 'الترميم والتشطيبات ',
+      description:
+        'نقوم بتنفيذ جميع أعمال الترميم والتشطيبات الداخلية والخارجية للمباني بما في ذلك أعمال اللياسة والدهان وتأسيس أعمال الكهرباء والسباكة وتركيب البلاط وجميع الديكورات الداخلية من أسقف مستعارة وجبس بورد مع اضفاء لمسات فنية متميزة وأنيقة بما يلائم تطلعات عملائنا، ونبحث عن كل مايضمن الجودة في أعمالنا من أدوات وخبرات ذات كفاءة عالية. ',
       bgColor: 'bg-slate-800',
       iconBgColor: 'bg-cyan-400',
       iconTextColor: 'text-white',
     },
     {
-      icon: PaintBucket,
-      title: 'التشطيبات والديكور الداخلي',
-      description: 'نتخصص في التشطيبات الفاخرة والديكور الداخلي عالي الجودة التي تعكس الذوق الرفيع والأناقة. يعمل فريقنا على اختيار أفضل المواد والخامات العالمية مع ضمان الحرفية العالية في التركيب والتنفيذ. من الطلاء والأرضيات إلى الأسقف والإضاءة، نوفر حلولاً شاملة متكاملة تحول المساحات إلى بيئات راقية ومريحة.',
+      icon: Briefcase,
+      title: 'انشاء الملاحق',
+      description:
+        'نقوم بإنشاء جميع الملاحق السفلية والعلوية والغرف والمجالس والمستودعات ودورات المياه وخدمات الترميم وانشاء أسقف سندوتش بانل وأعمال التشطيب الداخلية والخارجية والمرافق الكهربائية والصحية العالية الجودة مع التزامنا بأعلى معايير الجودة والابتكار والدقة في التنفيذ. فعالة لكل مراحل المشروع من التخطيط إلى التسليم',
       bgColor: 'bg-slate-800',
       iconBgColor: 'bg-emerald-400',
       iconTextColor: 'text-white',
     },
   ]
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -42,7 +45,7 @@ export function ServicesPreview() {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -96,7 +99,7 @@ export function ServicesPreview() {
               </div>
 
               {/* Content */}
-              <div className="pt-12 flex flex-col flex-grow">
+              <div className="pt-12 flex flex-col flex-grow text-start">
                 <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
                 <p className="text-gray-200 leading-relaxed flex-grow text-sm">{service.description}</p>
                 

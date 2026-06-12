@@ -1,9 +1,10 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Mail, Phone, MapPin, Send } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, ChevronLeft } from 'lucide-react'
 import { useState } from 'react'
+import { FaTiktok, FaWhatsapp } from 'react-icons/fa'
 
 export function Contact() {
   const { ref, inView } = useInView({
@@ -19,6 +20,7 @@ export function Contact() {
   })
 
   const [submitted, setSubmitted] = useState(false)
+  const [expandedContact, setExpandedContact] = useState<number | null>(null)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -28,21 +30,27 @@ export function Contact() {
 
   const contactInfo = [
     {
-      icon: Phone,
+      icon: <Phone size={24} />,
       label: 'رقم الهاتف',
       value: '+966 11 1234 5678',
       href: 'tel:+966111234567',
     },
     {
-      icon: Mail,
-      label: 'البريد الإلكتروني',
-      value: 'info@rafeef.com',
-      href: 'mailto:info@rafeef.com',
+      icon: <FaWhatsapp size={24} />, // Fixed typo: capitalized F to match react-icons export syntax
+      label: 'رقم الواتساب',
+      value: '+966 544175444',
+      href: 'https://api.whatsapp.com/send?phone=966544175444',
     },
     {
-      icon: MapPin,
+      icon: <Mail size={24} />,
+      label: 'البريد الإلكتروني',
+      value: 'v62@hotmail.com',
+      href: 'mailto:v62@hotmail.com',
+    },
+    {
+      icon: <MapPin size={24} />,
       label: 'الموقع',
-      value: 'الرياض، المملكة العربية السعودية',
+      value: 'الرياض، حي حطين، طريق الأمير محمد بن سلمان بن عبدالعزيز',
       href: '#',
     },
   ]
@@ -65,7 +73,7 @@ export function Contact() {
       y: 0,
       transition: { duration: 0.6 },
     },
-  }
+  } as const
 
   return (
     <section id="contact" className="py-20 px-6 bg-neutral-50" ref={ref}>
@@ -94,134 +102,96 @@ export function Contact() {
             animate={inView ? 'visible' : 'hidden'}
             className="space-y-6"
           >
-            {contactInfo.map((info) => {
-              const Icon = info.icon
+            {contactInfo.map((info, idx) => {
+              const IconInstance = info.icon
+              if (info.label === 'الموقع') {
+                return (
+                  <motion.div key={info.label} variants={itemVariants} className="overflow-hidden">
+                    <motion.button
+                      onClick={() => setExpandedContact(expandedContact === idx ? null : idx)}
+                      className="w-full flex items-start text-start gap-4 p-6 rounded-xl bg-white border border-neutral-200 hover:border-accent-gold hover:shadow-lg transition-all duration-300 group"
+                      whileHover={{ x: 6 }}
+                    >
+                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary-dark to-primary-light flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 text-[#1C3A3D]">
+                        {IconInstance}
+                      </div>
+                      <div className="flex-1 text-start">
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-lg font-bold text-primary-dark mb-1">{info.label}</h3>
+                          <ChevronLeft className={`duration-300 ${expandedContact === idx ? '-rotate-90' : ''}`}/>
+                        </div>
+                        <p className="text-slate-600 leading-relaxed">{info.value}</p>
+                      </div>
+                    </motion.button>
+
+                    <AnimatePresence>
+                      {expandedContact === idx && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.35, ease: 'easeInOut' }}
+                          className="px-6 space-y-2 pt-4 pb-6 bg-white border-t border-neutral-200 text-start"
+                        >
+                          <a href="#" className="mt-3 inline-block text-primary-dark font-semibold text-start">عرض على الخريطة</a>
+                          <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d14491.366934330315!2d46.61205!3d24.766615!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjTCsDQ1JzU5LjgiTiA0NsKwMzYnNDMuNCJF!5e0!3m2!1sen!2sdz!4v1781182093064!5m2!1sen!2sdz"
+                            className='w-full h-52'
+                            style={{ border: 0, borderRadius: '8px' }}
+                            loading="lazy"
+                            allowFullScreen={true}
+                            referrerPolicy="no-referrer-when-downgrade"
+                          ></iframe>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                )
+              }
+
+              // Checks both strings safely using clean explicit evaluation syntax
+              const isNumericField = info.label === 'رقم الهاتف' || info.label === 'رقم الواتساب'
 
               return (
                 <motion.a
                   key={info.label}
                   href={info.href}
                   variants={itemVariants}
-                  className="flex items-start gap-4 p-6 rounded-xl bg-white border border-neutral-200 hover:border-accent-gold hover:shadow-lg transition-all duration-300 group"
+                  className="flex items-start gap-4 p-6 rounded-xl bg-white border border-neutral-200 hover:border-accent-gold hover:shadow-lg transition-all duration-300 group text-start"
                 >
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary-dark to-primary-light flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="text-white" size={24} />
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary-dark to-primary-light flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 text-[#1C3A3D">
+                    {IconInstance}
                   </div>
 
                   <div>
                     <h3 className="text-lg font-bold text-primary-dark mb-1">{info.label}</h3>
-                    <p className="text-slate-600">{info.value}</p>
+                    <p 
+                      className={`text-slate-600 ${isNumericField ? 'text-right' : ''}`} 
+                      dir={isNumericField ? 'ltr' : 'rtl'}
+                    >
+                      {info.value}
+                    </p>
                   </div>
                 </motion.a>
               )
             })}
 
             {/* Social Links */}
-            <motion.div variants={itemVariants} className="pt-4">
+            <motion.div variants={itemVariants} className="pt-4 text-start">
               <p className="text-slate-700 font-bold mb-4">تابعنا على وسائل التواصل</p>
               <div className="flex gap-4">
-                {['instagram', 'twitter', 'linkedin', 'facebook'].map((social) => (
-                  <motion.button
-                    key={social}
-                    className="w-12 h-12 rounded-lg bg-white border border-neutral-200 flex items-center justify-center text-primary-dark hover:bg-primary-dark hover:text-white transition-all duration-300"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {social === 'instagram' && '📷'}
-                    {social === 'twitter' && '𝕏'}
-                    {social === 'linkedin' && '💼'}
-                    {social === 'facebook' && 'f'}
-                  </motion.button>
-                ))}
+                <motion.a
+                  href="https://www.tiktok.com/@rafeefaljazeera?_t=8nvbKiOWeBx&_r=1"
+                  className="w-10 h-10 rounded-lg bg-[#0f1f35] border text-white border-white/20 flex items-center justify-center hover:bg-white hover:text-[#0f1f35] transition-all duration-300"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FaTiktok />
+                </motion.a>
               </div>
             </motion.div>
           </motion.div>
-
-          {/* Contact Form */}
-          <motion.form
-            onSubmit={handleSubmit}
-            className="space-y-6"
-            initial={{ opacity: 0, x: 40 }}
-            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-bold text-primary-dark mb-2">الاسم الكامل</label>
-                <motion.input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="أدخل اسمك الكامل"
-                  className="w-full px-6 py-3 rounded-lg border border-neutral-200 focus:border-primary-dark focus:ring-2 focus:ring-primary-light/30 outline-none transition-all duration-300"
-                  whileFocus={{ scale: 1.02 }}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-bold text-primary-dark mb-2">البريد الإلكتروني</label>
-                <motion.input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="بريدك الإلكتروني"
-                  className="w-full px-6 py-3 rounded-lg border border-neutral-200 focus:border-primary-dark focus:ring-2 focus:ring-primary-light/30 outline-none transition-all duration-300"
-                  whileFocus={{ scale: 1.02 }}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-bold text-primary-dark mb-2">رقم الهاتف</label>
-                <motion.input
-                  type="tel"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="+966 XX XXX XXXX"
-                  className="w-full px-6 py-3 rounded-lg border border-neutral-200 focus:border-primary-dark focus:ring-2 focus:ring-primary-light/30 outline-none transition-all duration-300"
-                  whileFocus={{ scale: 1.02 }}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-bold text-primary-dark mb-2">رسالتك</label>
-                <motion.textarea
-                  required
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="شرح موجز عن مشروعك..."
-                  rows={5}
-                  className="w-full px-6 py-3 rounded-lg border border-neutral-200 focus:border-primary-dark focus:ring-2 focus:ring-primary-light/30 outline-none transition-all duration-300 resize-none"
-                  whileFocus={{ scale: 1.02 }}
-                />
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <motion.button
-              type="submit"
-              className={`w-full py-3.5 rounded-lg font-bold text-lg flex items-center justify-center gap-2 transition-all duration-300 ${
-                submitted
-                  ? 'bg-green-500 text-white'
-                  : 'bg-gradient-to-r from-primary-dark to-primary-light text-white hover:shadow-lg'
-              }`}
-              whileHover={!submitted ? { scale: 1.02 } : {}}
-              whileTap={!submitted ? { scale: 0.98 } : {}}
-            >
-              {submitted ? (
-                <>
-                  <span>✓ تم الإرسال بنجاح</span>
-                </>
-              ) : (
-                <>
-                  <Send size={20} />
-                  إرسال الرسالة
-                </>
-              )}
-            </motion.button>
-          </motion.form>
+          <img src='what-we-do.jpg' className='rounded-md sm:h-screen' />
         </div>
       </div>
     </section>

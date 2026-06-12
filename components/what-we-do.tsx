@@ -1,9 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion,Variants } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useEffect, useState } from 'react'
-import { Building2, Hammer, Clipboard, Users, BadgeCheck } from 'lucide-react'
+import { Building2, Hammer, Clipboard, Users, BadgeCheck, ArrowLeft } from 'lucide-react'
 import { GrUserWorker } from 'react-icons/gr'
 
 const AnimatedCounter = ({ target, label }: { target: number; label: string }) => {
@@ -65,7 +65,7 @@ const OverlayCounter = ({ target, label }: { target: number; label: string }) =>
 }
 
 export function WhatWeDo() {
-  const containerVariants = {
+  const containerVariants:Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -76,7 +76,7 @@ export function WhatWeDo() {
     },
   }
 
-  const itemVariants = {
+  const itemVariants:Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -113,10 +113,10 @@ export function WhatWeDo() {
 
             <motion.div variants={itemVariants} className="pt-4">
               <a
-                href="/portfolio"
-                className="inline-block px-8 py-3 bg-[#1e3a5f] text-white rounded-lg font-semibold hover:bg-[#0f1f35] transition-colors"
+                href="/about"
+                className="inline-block group px-8 py-3 bg-[#1e3a5f] text-white rounded-lg font-semibold hover:bg-[#0f1f35] transition-colors"
               >
-                استعرض أعمالنا
+                قراءة المزيد <ArrowLeft className="w-5 h-5 inline-block mr-1 group-hover:-translate-x-2 duration-300 " />
               </a>
             </motion.div>
           </motion.div>

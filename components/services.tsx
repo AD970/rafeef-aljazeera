@@ -1,8 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion,Variants } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Building2, Ruler, Paintbrush, Briefcase } from 'lucide-react'
+import { Building2, Ruler, Paintbrush, Briefcase, ArrowLeft } from 'lucide-react'
+import { Separator } from './ui/separator'
 
 export function Services() {
   const { ref, inView } = useInView({
@@ -13,35 +14,28 @@ export function Services() {
   const services = [
     {
       icon: Building2,
-      title: 'المقاولات العامة والإنشاءات',
+      title: 'انشاء القصور والفلل والعمائر',
       description:
-        'خدمات شاملة للمشاريع الإنشائية الكبرى مع الالتزام بأعلى معايير السلامة والجودة',
-      color: 'from-blue-500',
-    },
-    {
-      icon: Ruler,
-      title: 'التصميم الهندسي والمعماري',
-      description:
-        'تصاميم مبتكرة وعملية تجمع بين الجمال المعماري والكفاءة الهندسية',
-      color: 'from-emerald-500',
+        'نقوم بالإدارة والإشراف على كافة خدمات المقاولات العامة من بناء الهياكل الخرسانية من جسور و أسقف وأساسات باستخدام أحدث التقنيات والمواد المبتكرة في البناء الخرساني وفقا لاشتراطات ومواصفات الكود السعودي للبناء.',
+      img: '/services/انشاء_القصور.jpg',
     },
     {
       icon: Paintbrush,
-      title: 'الترميم والتشطيبات الفاخرة',
+      title: 'الترميم والتشطيبات ',
       description:
-        'تحويل المساحات بأعلى مستويات التشطيب والتفاصيل الفاخرة',
-      color: 'from-amber-500',
+      'نقوم بتنفيذ جميع أعمال الترميم والتشطيبات الداخلية والخارجية للمباني بما في ذلك أعمال اللياسة والدهان وتأسيس أعمال الكهرباء والسباكة وتركيب البلاط وجميع الديكورات الداخلية من أسقف مستعارة وجبس بورد مع اضفاء لمسات فنية متميزة وأنيقة بما يلائم تطلعات عملائنا، ونبحث عن كل مايضمن الجودة في أعمالنا من أدوات وخبرات ذات كفاءة عالية. ',
+      img: '/services/التشطيب.jpg',
     },
     {
       icon: Briefcase,
-      title: 'إدارة المشاريع الإنشائية',
+      title: "انشاء الملاحق",
       description:
-        'إدارة فعالة لكل مراحل المشروع من التخطيط إلى التسليم',
-      color: 'from-purple-500',
+        'نقوم بإنشاء جميع الملاحق السفلية والعلوية والغرف والمجالس والمستودعات ودورات المياه وخدمات الترميم وانشاء أسقف سندوتش بانل وأعمال التشطيب الداخلية والخارجية والمرافق الكهربائية والصحية العالية الجودة مع التزامنا بأعلى معايير الجودة والابتكار والدقة في التنفيذ. فعالة لكل مراحل المشروع من التخطيط إلى التسليم',
+      img: '/services/انشاء_الملاحق.jpg',
     },
   ]
 
-  const containerVariants = {
+  const containerVariants:Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -52,7 +46,7 @@ export function Services() {
     },
   }
 
-  const cardVariants = {
+  const cardVariants:Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
@@ -87,7 +81,7 @@ export function Services() {
 
         {/* Services Grid */}
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid sm:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-6"
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
@@ -96,33 +90,42 @@ export function Services() {
             const Icon = service.icon
 
             return (
+
               <motion.div
                 key={service.title}
                 variants={cardVariants}
-                whileHover="hover"
-                className="group relative p-8 rounded-2xl bg-white border border-neutral-200 cursor-pointer transition-all duration-300 hover:bg-slate-200"
+                whileHover={'hover'}
+                className="group relative p-8 rounded-2xl gap-4   border border-neutral-300 cursor-pointer transition-all duration-300 flex flex-col justify-between"
               >
-                {/* Gradient background on hover */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-dark/5 to-primary-light/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="space-y-4">
 
-                {/* Icon background */}
-                <div 
-                  className={` w-12 h-12 rounded-xl  bg-blue-600 group-hover:bg-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <Icon className="text-white group-hover:text-black" size={18} />
+                {/* Image with zoom on group hover */}
+                <div className="overflow-hidden rounded-lg">
+                  <img
+                    src={service.img}
+                    alt={service.title}
+                    className="h-[200px] w-[400px] object-cover transform transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
                 </div>
-                {/* Content */}
-                <div className="relative">
-                  <h3 className="text-xl font-bold  text-primary-dark mb-3">{service.title}</h3>
-                  <p className="text-slate-600 leading-relaxed">{service.description}</p>
-
-                  {/* Accent line */}
-                  <div className="mt-4 w-12 h-1 bg-gradient-to-r from-accent-gold to-accent-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
+                 <p className='text-black/60 font-bold'>0{index +1}/</p>
+                <h1 className='text-2xl font-bold'>
+                  {service.title}
+                </h1>
+                <p className='text-black/80 '>{service.description}</p>
                 </div>
+               <motion.a
+                                href="/contact"
+                                className="inline-flex items-center gap-2 font-semibold mt-6  transition-colors group"
+                                whileHover={{ x: 5 }}
+                              >
+                                <span className='group-hover:text-primary'>تواصل معنا</span>
+                                <ArrowLeft className="w-5 h-5 group-hover:translate-x-1 group-hover:text-primary transition-transform" />
+                              </motion.a>
               </motion.div>
             )
           })}
         </motion.div>
+        
       </div>
     </section>
   )

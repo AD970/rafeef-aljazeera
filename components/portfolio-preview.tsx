@@ -1,37 +1,37 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import Image from 'next/image'
 
 export function PortfolioPreview() {
   const projects = [
-    {
-      id: 1,
-      title: 'برج سكني حديث',
-      location: 'الرياض',
-      image: '/construction-bg.png',
-    },
-    {
-      id: 2,
-      title: 'مركز تجاري متقدم',
-      location: 'جدة',
-      image: '/construction-bg.png',
-    },
-    {
-      id: 3,
-      title: 'مجمع سكني فاخر',
-      location: 'الدمام',
-      image: '/construction-bg.png',
-    },
-    {
-      id: 4,
-      title: 'مشروع إداري متكامل',
-      location: 'الرياض',
-      image: '/construction-bg.png',
-    },
-  ]
+  {
+    id: 1,
+    title: 'برج سكني حديث',
+    location: 'الرياض',
+    image: '/projects/1.jpg',
+  },
+  {
+    id: 2,
+    title: 'مركز تجاري متقدم',
+    location: 'الرياض',
+    image: '/projects/10.jpg',
+  },
+  {
+    id: 3,
+    title: 'مجمع سكني فاخر',
+    location: 'الرياض',
+    image: '/projects/3.jpg',
+  },
+  {
+    id: 4,
+    title: 'مشروع إداري متكامل',
+    location: 'الرياض',
+    image: '/projects/4.jpg',
+  },
+]
 
-  const containerVariants = {
+  const containerVariants:Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -42,7 +42,7 @@ export function PortfolioPreview() {
     },
   }
 
-  const itemVariants = {
+  const itemVariants:Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -100,7 +100,7 @@ export function PortfolioPreview() {
 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                  <h3 className="text-white text-xl font-bold mb-2">{project.title}</h3>
+                  {/* <h3 className="text-white text-xl font-bold mb-2">{project.title}</h3> */}
                   <p className="text-gray-200 text-sm">{project.location}</p>
                 </div>
               </div>

@@ -1,6 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { MapPin, Phone, MessageSquare, Mail } from 'lucide-react'
+import { Separator } from './ui/separator'
+import { Button } from './ui/button'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -14,11 +17,40 @@ export function Footer() {
       title: 'الخدمات',
       links: ['المقاولات العامة', 'التصميم المعماري', 'إدارة المشاريع', 'التشطيبات'],
     },
-    {
-      title: 'سياسات',
-      links: ['سياسة الخصوصية', 'شروط الاستخدام', 'سياسة الأمان', 'اتفاقية الخدمة'],
-    },
+   
   ]
+  const contactInfo = {
+  title: 'معلومات التواصل',
+  details: [
+    {
+      id: 'address',
+      label: 'العنوان',
+      value: 'المملكة العربية السعودية، الرياض، حي حطين، طريق الأمير محمد بن سلمان بن عبدالعزيز',
+      href: 'https://maps.app.goo.gl/UnUZSpTqVoj68pdN6',
+      icon: MapPin,
+    },
+    {
+      id: 'phone',
+      label: 'الهاتف',
+      value: '0544175444',
+      href: 'tel:0544175444',
+      icon: Phone,
+    },
+    {
+      id: 'whatsapp',
+      label: 'الواتساب',
+      value: '+966544175444',
+      href: 'https://api.whatsapp.com/send?phone=966544175444',
+      icon: MessageSquare,
+    },
+    {
+      id: 'email',
+      label: 'البريد الالكتروني',
+      value: 'v62@hotmail.com',
+      href: 'mailto:v62@hotmail.com',
+      icon: Mail,
+    },
+  ],}
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -40,6 +72,25 @@ export function Footer() {
     },
   }
 
+  const importantLinks = [{
+    title: 'الرئيسية',
+    link: '/',
+  },
+  {
+    title: 'من نحن',
+    link: '/about',
+  },{
+    title: 'خدماتنا',
+    link: '/services',
+  },{
+    title: 'مشاريعنا',
+    link: '/portfolio',
+  },{
+    title: 'اتصل بنا',
+    link: '/contact',
+  },
+
+]
   return (
     <footer className="bg-[#0f1f35] text-white">
       <div className="max-w-6xl mx-auto px-6 py-16">
@@ -52,7 +103,7 @@ export function Footer() {
           viewport={{ once: true }}
         >
           {/* Brand */} 
-          <motion.div variants={itemVariants} className="col-span-1">
+          <motion.div variants={itemVariants} className="col-span-2">
             <div className="flex items-center gap-2 mb-6">
             <img src="/logo.png" alt="Rafeef Al Jazeera Logo" className="w-14 h-14" />
               <div>
@@ -61,28 +112,38 @@ export function Footer() {
               </div>
             </div>
             <p className="text-white/70 text-sm leading-relaxed">
-              شركة رائدة في قطاع المقاولات والإنشاءات مع التزام بأعلى معايير الجودة والأمان
-            </p>
+نقوم بتنفيذ عقود مقاولات إنشاء وصيانة المبني وأعمال الديكورات الداخلية والخارجية والأعمال الميكانيكية والكهربائية وشبكات المياه والصرف الصحي وأعمال العزل المائي والحراري والأعمال المتعلقة بها.            </p>
+        
+
           </motion.div>
 
           {/* Footer sections */}
-          {footerSections.map((section, index) => (
-            <motion.div key={section.title} variants={itemVariants}>
-              <h3 className="font-bold text-lg mb-6 text-white">{section.title}</h3>
-              <ul className="space-y-3">
-                {section.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-white/70 hover:text-white transition-colors duration-300 text-sm"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          <div className="flex flex-col gap-3 ">
+          <h1 className='text-white text-lg mb-1'>روابط مهمة</h1>
+          {importantLinks.map((section) => (
+
+            <motion.div key={section.title} variants={itemVariants} className=' group duration-300 transition-all hover:-translate-x-1 cursor-pointer '>
+              <a href={section.link} className="text-white/70 group-hover:text-[#1e3a5f]  ">{section.title}</a>
+              <Separator className='w-full h-[1px] bg-white/30 group-hover:bg-[#1e3a5f]' />
+              </motion.div>
+))}
+          </div>
+
+          <motion.div variants={itemVariants} className='flex flex-col gap-3 '>
+            <h1 className='text-white text-lg mb-1'>معلومات التواصل</h1>
+            {contactInfo.details.map((info) => (
+
+              <a
+                key={info.id}
+                href={info.href}
+                target='_blank'
+                className="flex items-center text gap-2 text-white/70 duration-300 mb-2"
+              >
+               {info.label}: <br></br>
+                {info.value}
+              </a>
+            ))}
             </motion.div>
-          ))}
         </motion.div>
 
         {/* Divider */}
@@ -90,7 +151,7 @@ export function Footer() {
 
         {/* Bottom section */}
         <motion.div
-          className="flex flex-col md:flex-row items-center justify-between gap-6"
+          className="flex flex-col relative md:flex-row items-center justify-between gap-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -101,23 +162,14 @@ export function Footer() {
           </p>
 
           {/* Social links */}
-          <div className="flex gap-4">
-            {[
-              { icon: '📷', label: 'Instagram' },
-              { icon: '𝕏', label: 'Twitter' },
-              { icon: '💼', label: 'LinkedIn' },
-              { icon: 'f', label: 'Facebook' },
-            ].map((social) => (
-              <motion.a
-                key={social.label}
-                href="#"
-                className="w-10 h-10 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white hover:text-[#0f1f35] transition-all duration-300"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {social.icon}
-              </motion.a>
-            ))}
+          <div className="flex gap-4 text-white/70  relative duration-300 transition-colors text-sm">
+         <a href='#' className='hover:text-white'>
+          سياسة الخصوصية
+         </a>
+             <a href="/contact" className='hover:text-white'>
+
+               اتصل بنا
+             </a>
           </div>
         </motion.div>
       </div>

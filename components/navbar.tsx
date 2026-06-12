@@ -26,7 +26,7 @@ export function Navbar({ variant = 'standard' }: NavbarProps) {
     { label: 'من نحن', href: '/about' },
     { label: 'خدماتنا', href: '/services' },
     { label: 'مشاريعنا', href: '/portfolio' },
-    { label: 'اتصل بنا', href: '#contact' },
+    { label: 'اتصل بنا', href: '/contact' },
   ]
 
   const toggleMenu = () => setIsOpen(!isOpen)
@@ -86,7 +86,7 @@ export function Navbar({ variant = 'standard' }: NavbarProps) {
 
         {/* CTA Button */}
         <motion.a
-          href="#contact"
+          href="/contact"
           className={`hidden lg:flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium transition-all duration-300 ${
             isHomeVariant && !isScrolled
               ? 'bg-white text-[#1e3a5f] hover:bg-gray-100'
@@ -122,16 +122,16 @@ export function Navbar({ variant = 'standard' }: NavbarProps) {
             <a
               key={item.label}
               href={item.href}
-              className="block py-3 px-4 text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors duration-300 font-medium"
+              className="block py-3 px-4 text-slate-700 hover:text-[#1e3a5f] hover:bg-emerald-50 rounded-lg transition-colors duration-300 font-medium"
               onClick={() => setIsOpen(false)}
             >
               {item.label}
             </a>
           ))}
           <a
-            href="#contact"
+            href="/contact"
             onClick={() => setIsOpen(false)}
-            className="w-full mt-4 block text-center bg-emerald-700 text-white py-2.5 rounded-lg font-medium hover:bg-emerald-800 transition-colors"
+            className="w-full mt-4 block text-center  py-2.5 rounded-lg font-medium bg-[#1e3a5f] text-white hover:bg-[#0f1f35] transition-colors"
           >
             اتصل بنا
           </a>
