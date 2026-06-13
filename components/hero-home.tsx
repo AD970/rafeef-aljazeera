@@ -113,7 +113,7 @@ export function HeroHome() {
               </motion.a>
 
               <motion.a
-                href="#contact"
+                href="/contact"
                 className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors inline-block text-center"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

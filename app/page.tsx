@@ -6,6 +6,7 @@ import { WhyUs } from '@/components/why-us'
 import { PortfolioPreview } from '@/components/portfolio-preview'
 import { Contact } from '@/components/contact'
 import { Footer } from '@/components/footer'
+import { LocalBusinessSchema } from './schema'
 
 export const metadata = {
   title: 'رفيف الجزيرة - الرئيسية',
@@ -15,6 +16,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
+    <LocalBusinessSchema />
       <Navbar variant="home" />
       <main className="overflow-hidden">
         <HeroHome />
